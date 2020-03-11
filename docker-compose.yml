@@ -1,0 +1,20 @@
+version: "3"
+services:
+  websocket:
+    build:
+      context: "."
+      dockerfile: "./websocket/Dockerfile"
+    ports:
+      - 8989:8989
+    volumes:
+      - ./websocket:/opt/app
+    environment:
+      - DB_URI=mysql://root:password@channels-service-db/db?charset=UTF8
+
+  websocket-service-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABSE=db
+    image: mysql:5.7.20
+    ports:
+      - 0.0.0.0:7205:3306
