@@ -1,37 +1,36 @@
 import { gql } from "apollo-server";
 
-const typeDefs = gql`
-  scalar Date
+const typeDefs = gql`  
 
-  type Listing {
-    description: String!
+  type Topic {
+    name: String!
     id: ID!
-    title: String!
+    createdBy: String!
+    channelId: ID!
   }
   
-  type User {
-    email: String!
+  type Channel {
+    name: String!
     id: ID!
+    createdBy: String!
   }
   
-  type UserSession {
-    createdAt: Date!
-    expiresAt: Date!
+  type Score {
+    score: String!
+    createdBy: String!
     id: ID!
-    user: User!
+    topicID: ID!
   }
   
   type Mutation {
-    
-    createListing(description: String!, title: String!): Listing!
-    createUser(email: String!, password: String!): User!
-    createUserSession(email: String!, password: String!): UserSession!
-    deleteUserSession(sessionId: ID!): Boolean!
+    createTopic(name: String!, createdBy: String!, channelId: ID!): Topic!
+    createChannel(name: String!, createdBy: String!): Channel!
+    createScore(name: String!, createdBy: String!, topicId: ID!): Score!
   }
   
   type Query {
-    listings: [Listing!]!
-    userSession(me: Boolean!): UserSession
+    topics: [Topic!]!
+    channels: [Channel!]!
   }
 `;
 

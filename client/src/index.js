@@ -1,13 +1,17 @@
 import React from "react";
-import { render } from "react-dom";
-import { Provider } from "react-redux";
+import {ApolloProvider} from "react-apollo";
+import graphqlClient from "#root/api/graphqlClient";
+import {render} from "react-dom";
+import {Provider} from "react-redux";
 import Root from "./components/Root";
 import store from "./store";
 
 
-render (
+render(
   <Provider store={store}>
-    <Root/>
+    <ApolloProvider client={graphqlClient}>
+      <Root/>
+    </ApolloProvider>
   </Provider>,
   document.getElementById("app")
 );

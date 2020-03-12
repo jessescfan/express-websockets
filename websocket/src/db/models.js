@@ -8,6 +8,10 @@ Channel.init({
     allowNull: false,
     type: DataTypes.STRING
   },
+  createdBy: {
+    allowNull: false,
+    type: DataTypes.STRING
+  },
 }, {
   modelName: "channels",
   sequelize
@@ -17,6 +21,14 @@ export class Topic extends Model {}
 
 Topic.init(
   {
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    createdBy: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
     channelId: {
       allowNull: false,
       references: {
@@ -36,6 +48,14 @@ export class Score extends Model {}
 
 Score.init(
   {
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    createdBy: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
     topicId: {
       allowNull: false,
       references: {

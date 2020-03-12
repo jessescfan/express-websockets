@@ -1,15 +1,30 @@
 version: "3"
 services:
+  api-gateway:
+    build:
+      context: "."
+      dockerfile: "./api-gateway/Dockerfile"
+    depends_on:
+      - websocket
+    ports:
+      - 7000:7000
+    volumes:
+      - ./api-gateway:/opt/app
+    environment:
+      - CHANNELS_SERVICE_URI=http://websocket:8989
+
   websocket:
     build:
       context: "."
       dockerfile: "./websocket/Dockerfile"
+    depends_on:
+      - websocket-service-db
+    environment:
+      - DB_URI=mysql://root:password@websocket-service-db/db?charset=UTF8
     ports:
       - 8989:8989
     volumes:
       - ./websocket:/opt/app
-    environment:
-      - DB_URI=mysql://root:password@channels-service-db/db?charset=UTF8
 
   websocket-service-db:
     environment:
