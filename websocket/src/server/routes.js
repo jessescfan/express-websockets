@@ -1,11 +1,15 @@
-import { Topic, Channel, Score } from "#root/db/models";
+import {Topic, Channel, Score} from "#root/db/models";
 
-import * as WebSocket from "ws";
-
-const setupRoutes = (app, server) => {
-
+const setupRoutes = (app) => {
   app.get("/channels", async (req, res, next) => {
     const channels = await Channel.findAll();
+
+    return res.json(channels);
+  });
+
+  app.get("/channels/:id", async (req, res, next) => {
+
+    const channels = await Channel.findByPk(req.params.id);
 
     return res.json(channels);
   });
@@ -16,12 +20,12 @@ const setupRoutes = (app, server) => {
     }
 
     try {
-      const topic = await Channel.create({
+      const channel = await Channel.create({
         name: req.body.name,
         createdBy: req.body.createdBy,
       });
 
-      return res.json(topic);
+      return res.json(channel);
     } catch (e) {
       return next(e);
     }
@@ -50,19 +54,6 @@ const setupRoutes = (app, server) => {
     } catch (e) {
       return next(e);
     }
-  });
-
-  const wss = new WebSocket.Server({ server });
-
-  wss.on('connection', async function connection(ws, req) {
-    ws.on('message', async function incoming(message) {
-      console.log(message);
-      wss.clients.forEach(function each(client) {
-        client.send(message);
-      });
-
-      return message;
-    })
   });
 };
 

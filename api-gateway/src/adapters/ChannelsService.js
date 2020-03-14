@@ -20,6 +20,13 @@ export default class ChannelsService {
         return body;
     }
 
+    static async fetchById(id) {
+
+        const body = await got.get(`${CHANNELS_SERVICE_URI}/channels/${id}`).json();
+
+        return body;
+    }
+
     static async createTopic({name, createdBy, channelId}) {
         const body = await got.post(`${CHANNELS_SERVICE_URI}/topics`, {
             json: {name, createdBy, channelId}

@@ -3,6 +3,7 @@ import cors from "cors"
 import express from "express";
 import * as http from 'http';
 import setupRoutes from "./routes";
+import setupWebSockets from "./sockets";
 
 const app = express();
 
@@ -15,7 +16,9 @@ app.use(
 );
 
 export const server = http.createServer(app);
-setupRoutes(app, server);
+
+setupRoutes(app);
+setupWebSockets(server);
 
 server.listen(8989, "0.0.0.0", () => {
   console.info(`Express WS app listening on 8989`)

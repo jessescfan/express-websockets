@@ -31,6 +31,7 @@ const typeDefs = gql`
   type Query {
     topics: [Topic!]!
     channels: [Channel!]!
+    channel(id:Int!): Channel
   }
 `;
 

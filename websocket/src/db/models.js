@@ -11,7 +11,7 @@ Channel.init({
   createdBy: {
     allowNull: false,
     type: DataTypes.STRING
-  },
+  }
 }, {
   modelName: "channels",
   sequelize
